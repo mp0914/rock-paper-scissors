@@ -1,0 +1,1 @@
+this is a simple version of rock paper scissors played completely in the console.
