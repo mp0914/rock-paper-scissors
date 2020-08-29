@@ -16,11 +16,62 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
        <script>
-           let computerChoice = ['Rock', 'Paper', 'Scissors'];
-            function computerPlay() {
-                let random = Math.floor(Math.random() * computerChoice.length);
-                console.log(random, computerChoice[random])
-        }
+            // player score
+            let playerScore = 0;
+            let computerScore = 0;
+            let computerSelection = computerPlay ()
+            // Randomize computers choice
+            function computerPlay () {
+                let myArray = ["Rock", "Paper", "Scissors"]
+                let computerRandom = myArray[Math.floor(Math.random()*myArray.length)];
+
+                console.log(computerRandom)
+                }
+
+                // prompt user for choice
+            let playerSelection = prompt("Rock, Paper, or Scissors?", "Make your choice.");
+
+            // Plays one round of rock paper scissors
+            function playRound(playerSelection, computerSelection) {
+            
+                // Player selects weapon
+                let playerMove = playerSelection.toLowerCase(); 
+
+                // Computer selects weapon
+                let computerMove = computerSelection;
+            
+                // Check who wins and gives points
+                
+
+                if (playerMove = 'rock' && computerMove == 'scissors') {
+                    return "You are the winner" + playerMove + " beats " + computerMove;
+                    playerScore++
+                } else if (playerMove == "scissors" && computerMove == "paper") {
+                    return "You won! " + playerMove + " beats " + computerMove;
+                    playerScore++
+                } else if (playerMove == "paper" && computerMove == "rock") {
+                    return "You won! " + playerMove + " beats " + computerMove;
+                    playerScore++
+                } else if (playerMove == computerMove) {
+                    return "Draw!";
+
+                } else {
+                    return "You lose! " + computerMove + " beats " + playerMove;
+
+                }
+           }
+
+           playRound(playerSelection, computerSelection)
+           console.log(computerScore)
+           console.log(playerScore)
+
+           // Play 5 games and decides winner
+            
+
+          
+         
+
+            
         
 
        </script>
