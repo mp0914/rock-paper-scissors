@@ -16,56 +16,87 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
        <script>
-            // player score
-            let playerScore = 0;
-            let computerScore = 0;
-            let computerSelection = computerPlay ()
-            // Randomize computers choice
-            function computerPlay () {
-                let myArray = ["Rock", "Paper", "Scissors"]
-                let computerRandom = myArray[Math.floor(Math.random()*myArray.length)];
+            let choices = ['rock', 'paper', 'scissors'];
 
-                console.log(computerRandom)
+            // Return random choice for computer
+            function computerPlay() {
+                let computerSelection = choices[Math.floor(Math.random() * (3-0) + 0)];
+                return computerSelection;
+            }
+
+            // Prompt player for choice and return 
+            function userPlay () {
+                while(true) {
+                    let userSelection = prompt('Rock, Paper, or Scissors. Choose your weapon!') || "".toLowerCase();
+                    // user enters rock, paper, or scissors or prompt resets
+                    if (choices.includes(userSelection)) return userSelection;
                 }
+            }
+            // Plays a single round
+            function playRound() {
+                // Set variable to store user and computer selection
+                let computerSelection = computerPlay();
+                let userSelection = userPlay();
+                console.log(`The computer has chosen ${computerSelection}.`)
+                let userWin = false;
+                let tieMsg = 'It is a tie, try again!'
+                let winMsg = `You win - ${userSelection} beats ${computerSelection}!`
+                let loseMsg = `You lose - ${computerSelection} beats ${userSelection}!`
 
-                // prompt user for choice
-            let playerSelection = prompt("Rock, Paper, or Scissors?", "Make your choice.");
-
-            // Plays one round of rock paper scissors
-            function playRound(playerSelection, computerSelection) {
-            
-                // Player selects weapon
-                let playerMove = playerSelection.toLowerCase(); 
-
-                // Computer selects weapon
-                let computerMove = computerSelection;
-            
-                // Check who wins and gives points
+                // Check for tie
+                if (userSelection == computerSelection) {
+                    console.log(tieMsg);
+                    prompt(`${tieMsg}`);
+                    return 'Tie';
+                }
                 
-
-                if (playerMove = 'rock' && computerMove == 'scissors') {
-                    return "You are the winner" + playerMove + " beats " + computerMove;
-                    playerScore++
-                } else if (playerMove == "scissors" && computerMove == "paper") {
-                    return "You won! " + playerMove + " beats " + computerMove;
-                    playerScore++
-                } else if (playerMove == "paper" && computerMove == "rock") {
-                    return "You won! " + playerMove + " beats " + computerMove;
-                    playerScore++
-                } else if (playerMove == computerMove) {
-                    return "Draw!";
-
-                } else {
-                    return "You lose! " + computerMove + " beats " + playerMove;
-
+                // Check for winner and delare winner or loser
+                if (userSelection === 'rock' && computerSelection != 'paper') {
+                    console.log(winMsg);
+                    userWin = true;
+                    return userWin;
                 }
-           }
+                if (userSelection === 'paper' && computerSelection != 'scissors') {
+                    console.log(winMsg);
+                    userWin = true;
+                    return userWin;
+                }
+                if (userSelection === 'scissors' && computerSelection != 'rock') {
+                    console.log(winMsg);
+                    userWin = true;
+                    return userWin;
+                }
+                else {
+                    console.log(loseMsg);
+                    return userWin;
+                }
+            }
 
-           playRound(playerSelection, computerSelection)
-           console.log(computerScore)
-           console.log(playerScore)
+            function game() {
+                // Declare win counters
+                let userWins = 0;
+                let computerWins = 0;
 
-           // Play 5 games and decides winner
+                // Play rounds until someone has 5 wins
+                while (userWins != 5 && computerWins != 5) {
+                    // Play a round
+                    do {userWin = playRound();} while (userWin === 'tie');
+                    // let userWin = playRound(); 
+                    // If the round was a tie, play another round
+                    // if (userWin === 'tie') {
+                    //     playRound(); 
+                    // }
+                    // If the user won, increment their win counter
+                    if (userWin === true) userWins += 1;
+                    // Otherwise, the comnputer must have won
+                    else if (userWin === false) computerWins += 1;
+                    console.log(`User: ${userWins} points. Computer: ${computerWins} points.`);
+                }
+                if (userWins === 5) return console.log(`You win the match, ${userWins} to ${computerWins}!`);
+                else return console.log('The computer wins the match - Try again!');
+            }
+            
+        
             
 
           
